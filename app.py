@@ -32,7 +32,7 @@ st.markdown(CSS_STYLE, unsafe_allow_html=True)
 
 client_id = st.secrets["CLIENT_ID"]
 client_secret = st.secrets["CLIENT_SECRET"]
-redirect_url = "https://fxn4qbs5wygh8lzfmgfpuy.streamlit.app/"
+redirect_uri = "https://fxn4qbs5wygh8lzfmgfpuy.streamlit.app/"
 authorization_based_url = "https://accounts.google.com/o/oauth2/auth"
 token_url = "https://oauth2.googleapis.com/token"
 scope = [
@@ -46,7 +46,7 @@ def exchange_code_for_token(code):
                     "code": code,
                     "client_id": client_id,
                     "client_secret": client_secret,
-                    "redirect_uri": redirect_url,
+                    "redirect_uri": redirect_uri,
                     "grant_type": "authorization_code",
                 }
             response = requests.post(token_url, data=data)
@@ -81,60 +81,77 @@ if "user_name" not in st.session_state:
     st.session_state.user_name = None
 
 if st.session_state.oauth_token:
-            with st.sidebar:
-                        st.title("Log out")
-                        st.image(SIGN_IN_IMAGE, caption="Log out")
-                        if st.button("Log Out"):
-                                    st.session_state.oauth_token = None
-                                    st.write(f"""
-                                    <a target="_self" href="{LOGOUT_URL}">
-                                        <button class = 'login-button'>
-                                            Confirm
-                                        </button>
-                                    </a>""",
-                                        unsafe_allow_html=True)
+    with st.sidebar:
+        st.title("Log Out")
+        st.image(SIGNIN_IMAGE, caption="Log Out")
+        if st.button("Log Out"):
+            st.session_state.oauth_token = None
+            # set login button
+            st.write(
+                f"""
+            <a target="_self" href="{LOGOUT_URL}">
+                <button class = 'login-button'>
+                    Confirm
+                </button>
+            </a>
+            """,
+                unsafe_allow_html=True,
+            )
 
-            st.title(TITLE)
-            st.image(LOGIN_IMAGE, caption=IMAGE_CAPTION)
-            alzheimers_app_tracker, history = st.tabs(["Alzheimer's Checker", "Get History"])
-            with alzheimers_app_tracker:
-                        alzheimers_app()
-            with history_tab:
-                        history_tab_ui()
+    # set title and image
+    st.title(TITLE)
+    st.image(LOGIN_IMAGE, caption=IMAGE_CAPTION)
+    dementia_app_tracker, history = st.tabs(["Dementia Checker", "Get History"])
+
+    with alzheimer_app_tracker:
+        dementia_app()
+
+    with history:
+        history_tab()
 else:
-            oauth2_session = OAuth2Session(client_id, redirect_uri=redirect_uri, scope=scope)
-            authorization_url, state = oauth2_session.authorization_url(authorization_base_url, access_type="offline")
-            if st.session_state.oauth_state is None:
-                    st.session_state.oauth_state = state
-                    
-            st.title(TITLE)
-            st.image(LOGIN_IMAGE, caption = "Let's Track Dementia")
-            st.subheader("Please Sign In with Google to Continue 📲")
-            with st.sidebar:
-                        st.subheader("Please Sign In")
-                        st.image(SIGNIN_IMAGE, caption = "Sign In")
-                        st.write(f"""
-                                <a target="_blank" href="{authorization_url}">
-                                    <button class = 'login-button'>
-                                        Google Sign In
-                                    </button>
-                                </a>
-                                """, unsafe_allow_html=True)
+    oauth2_session = OAuth2Session(client_id, redirect_uri=redirect_uri, scope=scope)
+    authorization_url, state = oauth2_session.authorization_url(
+        authorization_base_url, access_type="offline")
 
-            authorization_response = st.query_params
+    if st.session_state.oauth_state is None:
+        st.session_state.oauth_state = state
 
-            if "code" in authorization_response:
-                                    st.session_state.oauth_token = exchange_code_for_token(authorization_response["code"])
-                                    user_info = get_user_info(st.session_state.oauth_token)
-                                    st.session_state.user_id = user_info["sub"]
-                                    st.session_state.user_name = user_info["name"]
+    # set the sign in page
+    st.title(TITLE)
+    st.image(LOGIN_IMAGE, caption = "Let's Track Dementia")
+    # sign in
+    st.subheader("Please Sign In with Google to Continue 📲")
+    with st.sidebar:
+        st.subheader("Please Sign In")
+        st.image(SIGNIN_IMAGE, caption = "Sign In")
+        st.write(
+            f"""
+        <a target="_blank" href="{authorization_url}">
+            <button class = 'login-button'>
+                Google Sign In
+            </button>
+        </a>
+        """,
+            unsafe_allow_html=True,
+        )
+    authorization_response = st.query_params
 
-                                    with st.sidebar:
-                                                st.subheader("Hi! {} 👋".format(user_info["name"]))
-                                                st.subheader("Welcome to the Alzheimer's App!")
-                                                st.write("**Name**: {}".format(user_info["name"]))
-                                                st.write("**Email**: {}".format(user_info["email"]))
-                                    
-                                                st.subheader("Login Successful! Please Click on Continue")
-                                                if st.button("Continue"):
-                                                    st.toast("Login Successfull!")
+    if "code" in authorization_response:
+        st.session_state.oauth_token = exchange_code_for_token(
+            authorization_response["code"]
+        )
+        user_info = get_user_info(st.session_state.oauth_token)
+        # set session states
+        st.session_state.user_id = user_info["sub"]
+        st.session_state.user_name = user_info["name"]
+
+        # ui
+        with st.sidebar:
+            st.subheader("Hi! {} 👋".format(user_info["name"]))
+            st.subheader("Welcome to the Alzheimer's App!")
+            st.write("**Name**: {}".format(user_info["name"]))
+            st.write("**Email**: {}".format(user_info["email"]))
+
+            st.subheader("Login Successful! Please Click on Continue")
+            if st.button("Continue"):
+                st.toast("Login Successfull!")
