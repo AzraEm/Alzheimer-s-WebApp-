@@ -6,7 +6,7 @@ import json
 import requests
 
 ROOT_NAME = "kalemvesilgi"
-MODEL_NAME = "full_transcript_mlp_best_model3"
+MODEL_NAME = "full_transcript_mlp_best_model_01_50"
 MAPPER = {"0": "Normal", "1": "Alzheimer's" }
 CLIENT = openapi(api_key=st.secrets["OPEN_API_KEY"])
 
