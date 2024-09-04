@@ -26,13 +26,13 @@ CSS_STYLE = """
 
 LOGIN_IMAGE = "https://kffhealthnews.org/wp-content/uploads/sites/2/2020/02/Dementia-resized.png?w=1024"
 SIGN_IN_IMAGE = "https://beconnected.esafety.gov.au/pluginfile.php/82020/mod_resource/content/1/t35_c4_a2_p1.png"
-LOG_OUT_URL = "https://adhdhistory-u2cko4dyvncvkr7whryxg8.streamlit.app/"
+LOG_OUT_URL = "https://fxn4qbs5wygh8lzfmgfpuy.streamlit.app"
 
 st.markdown(CSS_STYLE, unsafe_allow_html=True)
 
 client_id = st.secrets["CLIENT_ID"]
 client_secret = st.secrets["CLIENT_SECRET"]
-redirect_url = "https://adhdhistory-u2cko4dyvncvkr7whryxg8.streamlit.app"
+redirect_url = "https://fxn4qbs5wygh8lzfmgfpuy.streamlit.app/"
 authorization_based_url = "https://accounts.google.com/o/oauth2/auth"
 token_url = "https://oauth2.googleapis.com/token"
 scope = [
