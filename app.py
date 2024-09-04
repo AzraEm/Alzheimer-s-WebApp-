@@ -46,7 +46,7 @@ def exchange_code_for_token(code):
                     "code": code,
                     "client_id": client_id,
                     "client_secret": client_secret,
-                    "redirect_uri": redirect_uri,
+                    "redirect_uri": redirect_url,
                     "grant_type": "authorization_code",
                 }
             response = requests.post(token_url, data=data)
