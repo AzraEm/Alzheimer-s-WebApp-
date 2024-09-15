@@ -2,83 +2,99 @@ import streamlit as st
 import json
 import requests
 from requests_oauthlib import OAuth2Session
-from dem_tab import alzheimers_app
+
+from dem_tab import dementia_app
 from history_tab import history_tab_ui
+
 
 TITLE = "Alzheimer's App"
 IMAGE_CAPTION = "Let's track Alzheimer's!"
-CSS_STYLE = """ 
-<style>
-.login-button {
+CSS_STYLE = """
+    <style>
+        .login-button {
             padding: 10px;
             border-radius: 5px;
             background-color: blue;
             color: white;
             border: none;
             margin-bottom: 20px;
-   }
-
-.login-button: hover {
+        }
+        .login-button:hover {
             color: black;
         }
-</style>
+    </style>
 """
-
 LOGIN_IMAGE = "https://kffhealthnews.org/wp-content/uploads/sites/2/2020/02/Dementia-resized.png?w=1024"
-SIGN_IN_IMAGE = "https://beconnected.esafety.gov.au/pluginfile.php/82020/mod_resource/content/1/t35_c4_a2_p1.png"
-LOG_OUT_URL = "https://fxn4qbs5wygh8lzfmgfpuy.streamlit.app"
+SIGNIN_IMAGE = "https://beconnected.esafety.gov.au/pluginfile.php/82020/mod_resource/content/1/t35_c4_a2_p1.png"
+# you have to change with the deployment
+LOGOUT_URL = "https://fxn4qbs5wygh8lzfmgfpuy.streamlit.app/"
 
+# set css styles
 st.markdown(CSS_STYLE, unsafe_allow_html=True)
 
+# Google OAuth2 credentials
 client_id = st.secrets["CLIENT_ID"]
 client_secret = st.secrets["CLIENT_SECRET"]
-redirect_uri = "https://fxn4qbs5wygh8lzfmgfpuy.streamlit.app/"
-authorization_based_url = "https://accounts.google.com/o/oauth2/auth"
+# you have to change with the deployment
+redirect_uri = "https://fxn4qbs5wygh8lzfmgfpuy.streamlit.app"
+
+# OAuth endpoints
+authorization_base_url = "https://accounts.google.com/o/oauth2/auth"
 token_url = "https://oauth2.googleapis.com/token"
+
+# Scopes
 scope = [
     "https://www.googleapis.com/auth/userinfo.email",
     "https://www.googleapis.com/auth/userinfo.profile",
 ]
 
+
 def exchange_code_for_token(code):
-            token_url = "https://oauth2.googleapis.com/token"
-            data = {
-                    "code": code,
-                    "client_id": client_id,
-                    "client_secret": client_secret,
-                    "redirect_uri": redirect_uri,
-                    "grant_type": "authorization_code",
-                }
-            response = requests.post(token_url, data=data)
-            response_data = response.json()
-
-            if response_data != 200:
-                        raise Exception("Failed to retrieve token: " + response_data.get("error_description", ""))
-
-            return response_data["access_token"]
+    token_url = "https://oauth2.googleapis.com/token"
+    # Prepare the data for the token request
+    data = {
+        "code": code,
+        "client_id": client_id,
+        "client_secret": client_secret,
+        "redirect_uri": redirect_uri,
+        "grant_type": "authorization_code",
+    }
+    # Make a POST request to the token endpoint
+    response = requests.post(token_url, data=data)
+    response_data = response.json()
+    # Handle possible errors
+    if response.status_code != 200:
+        raise Exception(
+            "Failed to retrieve token: " + response_data.get("error_description", "")
+        )
+    return response_data["access_token"]
 
 
 def get_user_info(access_token):
-            user_info_url = "https://www.googleapis.com/oauth2/v3/userinfo"
-            headers = {"Authorization": f"Bearer {access_token}"}
-            
-            response = requests.get(user_info_url, headers=headers)
-            user_info = response.json()
-
-            if response.status_code != 200:
-                        raise Exception("Failed to retrieve user info: " + user_info.get("error_description", ""))
-                        
-            return user_info
+    user_info_url = "https://www.googleapis.com/oauth2/v3/userinfo"
+    headers = {"Authorization": f"Bearer {access_token}"}
+    response = requests.get(user_info_url, headers=headers)
+    user_info = response.json()
+    # Handle possible errors
+    if response.status_code != 200:
+        raise Exception(
+            "Failed to retrieve user info: " + user_info.get("error_description", "")
+        )
+    return user_info
 
 
 if "oauth_state" not in st.session_state:
     st.session_state.oauth_state = None
+
 if "oauth_token" not in st.session_state:
     st.session_state.oauth_token = None
+
 if "user_id" not in st.session_state:
     st.session_state.user_id = None
+
 if "user_name" not in st.session_state:
     st.session_state.user_name = None
+
 
 if st.session_state.oauth_token:
     with st.sidebar:
@@ -101,17 +117,20 @@ if st.session_state.oauth_token:
     # set title and image
     st.title(TITLE)
     st.image(LOGIN_IMAGE, caption=IMAGE_CAPTION)
+
     dementia_app_tracker, history = st.tabs(["Dementia Checker", "Get History"])
 
-    with alzheimer_app_tracker:
+    with dementia_app_tracker:
         dementia_app()
 
     with history:
-        history_tab()
+        history_tab_ui()
+
 else:
     oauth2_session = OAuth2Session(client_id, redirect_uri=redirect_uri, scope=scope)
     authorization_url, state = oauth2_session.authorization_url(
-        authorization_base_url, access_type="offline")
+        authorization_base_url, access_type="offline"
+    )
 
     if st.session_state.oauth_state is None:
         st.session_state.oauth_state = state
@@ -134,6 +153,7 @@ else:
         """,
             unsafe_allow_html=True,
         )
+
     authorization_response = st.query_params
 
     if "code" in authorization_response:
@@ -148,7 +168,7 @@ else:
         # ui
         with st.sidebar:
             st.subheader("Hi! {} 👋".format(user_info["name"]))
-            st.subheader("Welcome to the Alzheimer's App!")
+            st.subheader("Welcome to the Dementia App!")
             st.write("**Name**: {}".format(user_info["name"]))
             st.write("**Email**: {}".format(user_info["email"]))
 
