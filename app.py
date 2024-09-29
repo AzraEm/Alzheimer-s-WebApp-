@@ -25,7 +25,7 @@ CSS_STYLE = """
     </style>
 """
 LOGIN_IMAGE = "https://kffhealthnews.org/wp-content/uploads/sites/2/2020/02/Dementia-resized.png?w=1024"
-SIGNIN_IMAGE = "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Google_2015_logo.svg/2560px-Google_2015_logo.svg.png"
+SIGNIN_IMAGE = "https://beconnected.esafety.gov.au/pluginfile.php/82020/mod_resource/content/1/t35_c4_a2_p1.png"
 # you have to change with the deployment
 LOGOUT_URL = "https://fxn4qbs5wygh8lzfmgfpuy.streamlit.app/"
 
@@ -138,7 +138,7 @@ else:
     # set the sign in page
     st.title(TITLE)
     st.image(LOGIN_IMAGE, caption = "Let's Track Dementia")
-    st.markdown("Alzheimer’s Disease is a progressive brain disorder that causes cognitive decline, such as memory loss and the inability complete simply daily tasks, that results in a decline in quality of life. According to the Alzheimer’s Association, nearly 7 million people are affected in the U.S., and many more will be effected in the future as the aging population increases worldwide. Alzheimer’s Disease has no cure; however, with early intervention, it is possible to alleviate the side effects and better manage symptoms. Unfortunately, it is rarely diagnosed early on because the symptoms are mild at the beginning and so, are usually attributed to other factors, like stress. BrainLex Analyzer introduces a novel way to detect Alzheimer’s Disease using Natural Language Processing techniques based on provided text input by *you*.")
+    
     # sign in
     st.subheader("Please Sign In with Google to Continue 📲")
     with st.sidebar:
