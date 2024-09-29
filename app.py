@@ -176,7 +176,7 @@ way to detect Alzheimer’s Disease using Natural Language Processing techniques
         # ui
         with st.sidebar:
             st.subheader("Hi! {} 👋".format(user_info["name"]))
-            st.subheader("Welcome to the Dementia App!")
+            st.subheader("Welcome to BrainLex Analyzer!")
             st.write("**Name**: {}".format(user_info["name"]))
             st.write("**Email**: {}".format(user_info["email"]))
 
