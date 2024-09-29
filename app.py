@@ -25,7 +25,7 @@ CSS_STYLE = """
     </style>
 """
 LOGIN_IMAGE = "https://kffhealthnews.org/wp-content/uploads/sites/2/2020/02/Dementia-resized.png?w=1024"
-SIGNIN_IMAGE = "https://beconnected.esafety.gov.au/pluginfile.php/82020/mod_resource/content/1/35_c4_a2_p1.png"
+SIGNIN_IMAGE = "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Google_2015_logo.svg/2560px-Google_2015_logo.svg.png"
 # you have to change with the deployment
 LOGOUT_URL = "https://fxn4qbs5wygh8lzfmgfpuy.streamlit.app/"
 
