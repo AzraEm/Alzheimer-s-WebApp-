@@ -143,7 +143,7 @@ else:
     st.subheader("Please Sign In with Google to Continue 📲")
     with st.sidebar:
         st.subheader("Please Sign In")
-        st.image(SIGNIN_IMAGE)
+        st.image(SIGNIN_IMAGE, caption = "")
         st.write(
             f"""
         <a target="_blank" href="{authorization_url}">
