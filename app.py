@@ -13,12 +13,12 @@ CSS_STYLE = """
     <style>
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: #fef5e7;
+            background-color: white;
         }
         .login-button {
             padding: 12px 18px;
             border-radius: 12px;
-            background: linear-gradient(135deg, #c3aed6, #ffe3e3);
+            background: linear-gradient(135deg, #7f3eb7, #925ccc);
             color: white;
             border: none;
             font-size: 16px;
@@ -31,7 +31,7 @@ CSS_STYLE = """
         }
         h1, h2, h3 {
             font-family: 'Nunito', sans-serif;
-            color: #3d3d3d;
+            color: white;
         }
         h1 {
             font-size: 36px;
@@ -40,7 +40,7 @@ CSS_STYLE = """
         .title-text {
             font-size: 30px;
             font-weight: bold;
-            color: #5a5a5a;
+            color: white;
         }
         .highlight {
             color: #ffe3e3;
@@ -175,12 +175,11 @@ else:
         st.session_state.oauth_state = state
 
     # set the sign in page
-    st.image("1.png")
-    st.image("2.png")
+    st.image("2.png", use_column_width=always)
+    st.image("1.png", use_column_width=always)
     
     
     # sign in
-    st.subheader("Please Sign In with Google to Continue 📲")
     with st.sidebar:
         st.subheader("Please Sign In")
         st.image(SIGNIN_IMAGE, caption = "")
