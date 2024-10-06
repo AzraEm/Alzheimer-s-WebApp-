@@ -11,7 +11,7 @@ ROOT_NAME = "kalemvesilgi"
 MODEL_NAME = "full_transcript_mlp_best_model_01_50"
 MAPPER = {
     "0": "Normal",
-    "1": "Cognitive Dementia"
+    "1": "Alzheimer's Disease"
 }
 
 
@@ -71,7 +71,7 @@ def dementia_app():
 
     if "code" in authorization_response:
         # set the title
-        st.header("Demential Tracker")
+        st.header("Alzheimer's Analyzer")
 
         # enter the text input
         text_input = st.text_input("Please Enter the Text")
