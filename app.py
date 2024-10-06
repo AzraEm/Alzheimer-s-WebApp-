@@ -175,8 +175,8 @@ else:
         st.session_state.oauth_state = state
 
     # set the sign in page
-    st.image("https://drive.google.com/file/d/1MavbJZ-pnV24GCTuu5Yrex1yRvPHEdtp/view?usp=sharing")
-    st.image("https://drive.google.com/file/d/1ZzNFC1AL6IUkQc7J3UhpoDCG8R6nzVUa/view?usp=sharing")
+    st.image("1.png")
+    st.image("2.png")
     
     
     # sign in
