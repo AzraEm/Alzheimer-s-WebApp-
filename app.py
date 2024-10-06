@@ -175,15 +175,9 @@ else:
         st.session_state.oauth_state = state
 
     # set the sign in page
-    st.title(TITLE)
-    st.image(LOGIN_IMAGE, caption = "Let's Track Dementia")
-    st.markdown("""Alzheimer’s Disease is a progressive brain disorder that causes cognitive decline, such as 
-memory loss and the inability complete simply daily tasks, that results in a decline in quality of life. According to 
-the Alzheimer’s Association, nearly 7 million people are affected in the U.S., and many more will be effected in the future 
-as the aging population increases worldwide. Alzheimer’s Disease has no cure; however, with early intervention, it is possible
- to alleviate the side effects and better manage symptoms. Unfortunately, it is rarely diagnosed early on because the symptoms 
-are mild at the beginning and so, are usually attributed to other factors, like stress. BrainLex Analyzer introduces a novel 
-way to detect Alzheimer’s Disease using Natural Language Processing techniques based on provided text input by *you*.""")
+    st.image("https://drive.google.com/file/d/1MavbJZ-pnV24GCTuu5Yrex1yRvPHEdtp/view?usp=sharing")
+    st.image("https://drive.google.com/file/d/1ZzNFC1AL6IUkQc7J3UhpoDCG8R6nzVUa/view?usp=sharing")
+    
     
     # sign in
     st.subheader("Please Sign In with Google to Continue 📲")
