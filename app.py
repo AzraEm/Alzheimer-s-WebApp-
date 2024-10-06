@@ -11,19 +11,58 @@ TITLE = "BrainLex Analyzer"
 IMAGE_CAPTION = "Let's track Alzheimer's!"
 CSS_STYLE = """
     <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #fef5e7;
+        }
         .login-button {
-            padding: 10px;
-            border-radius: 5px;
-            background-color: blue;
+            padding: 12px 18px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #c3aed6, #ffe3e3);
             color: white;
             border: none;
-            margin-bottom: 20px;
+            font-size: 16px;
+            transition: transform 0.2s ease, background-color 0.3s ease;
         }
         .login-button:hover {
-            color: black;
+            background-color: #a4ebf3;
+            transform: translateY(-3px);
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        h1, h2, h3 {
+            font-family: 'Nunito', sans-serif;
+            color: #3d3d3d;
+        }
+        h1 {
+            font-size: 36px;
+            animation: gradient-text 3s infinite ease;
+        }
+        .title-text {
+            font-size: 30px;
+            font-weight: bold;
+            color: #5a5a5a;
+        }
+        .highlight {
+            color: #ffe3e3;
+        }
+        .history-section {
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            background-color: #ffffff;
+        }
+
+        @keyframes gradient-text {
+            0% {
+                background-position: 0% 50%;
+            }
+            100% {
+                background-position: 100% 50%;
+            }
         }
     </style>
 """
+LOGO_PLACEHOLDER = "https://via.placeholder.com/150?text=Your+Logo+Here"
 LOGIN_IMAGE = "https://kffhealthnews.org/wp-content/uploads/sites/2/2020/02/Dementia-resized.png?w=1024"
 SIGNIN_IMAGE = "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Google_2015_logo.svg/2560px-Google_2015_logo.svg.png"
 # you have to change with the deployment
