@@ -175,7 +175,7 @@ else:
         st.session_state.oauth_state = state
 
     # set the sign in page
-    st.image("you.png", width=950)
+    st.image("you.png", width=875)
     
     # sign in
     with st.sidebar:
