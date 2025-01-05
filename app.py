@@ -175,7 +175,7 @@ else:
         st.session_state.oauth_state = state
 
     # set the sign in page
-    st.image("you.png", width=875)
+    st.image("you1.jpeg", width=875)
     st.image("Screenshot 2024-10-06 at 1.06.36 PM.png")
     
     # sign in
